@@ -25,6 +25,7 @@ class List {
     removeTask(id) {
         // const index = this._items.findIndex((item) => item.id === id)
         // this.items.splice(index, 1)
+        // localStorage.setItem("todos", JSON.stringify(todos));
     }
 
     filterTasks() {
@@ -92,10 +93,19 @@ function renderListAndAddEventListeners(list) {
     todoList.innerHTML = ''
     const listItems = list.items
     listItems.forEach((task) => {
+        let listRow = document.createElement('div')
+        listRow.setAttribute('class', 'task-row')
+        todoList.append(listRow)
+        let checkbox = document.createElement('input')
+        checkbox.setAttribute('type', 'checkbox')
+        listRow.append(checkbox)
         let listElement = document.createElement('li')
         listElement.textContent = task.text
         listElement.setAttribute('contenteditable', 'true')
-        todoList.append(listElement)
+        listRow.append(listElement)
+        let deleteButton = document.createElement('button')
+        deleteButton.setAttribute('value', 'delete')
+        listRow.append(deleteButton)
         preventDefaultEnterKeyBehaviour(listElement)
         updateTask(listElement, task)
     })
