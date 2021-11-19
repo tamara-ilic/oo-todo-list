@@ -33,15 +33,16 @@ class List {
     }
 
     toggleCompleted(id) {
+        // TODO: should look for .checked in <input type="checkbox"> instead of below
         const item = this._items.find(i => i.id === id)
         const index = this._items.findIndex(i => i.id === id)
         this._items.complete = !this._items.complete
         this._items.splice(index, 1, item)
         // filterTasks()
-        localStorage.setItem("items", JSON.stringify(this._items))
     }
 
     get items() {
+        localStorage.setItem("items", JSON.stringify(this._items))
         return this._items
     }
 }
@@ -103,6 +104,7 @@ function renderListAndAddEventListeners(list) {
         listElement.textContent = task.text
         listElement.setAttribute('contenteditable', 'true')
         listRow.append(listElement)
+        // TODO: fix button as it's not visible
         let deleteButton = document.createElement('button')
         deleteButton.setAttribute('value', 'delete')
         listRow.append(deleteButton)
