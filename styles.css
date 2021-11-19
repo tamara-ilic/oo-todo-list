@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    max-width: 1080px;
+    margin: auto;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    padding: 2rem;
+}
+
+#task-input {
+/* #newText {*/
+    padding: 0.5rem;
+    width: fit-content;
+}
+
+ul {
+    list-style-type: none;
+}
+
+ul li {
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    float: left;
+    height: 2.5rem;
+    position: relative;
+    width: 100%;
+}
+
+/* TODO: change background so that it doesn't take up the whole row */
+ul li.completed {
+    background: rgb(220, 220, 220);
+    color: white;
+    text-decoration: line-through;
+}
+
+/* add checked mark */
+ul li.completed::before {
+    border: 2px solid green;
+    border-width: 0 2px 2px 0;
+    content: '';
+    height: 1em;
+    left: 1em;
+    position: absolute;
+    transform: rotate(45deg);
+    width: 7px;
+}
+
+input {
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    margin-left: 0;
+    padding: 0.5rem;
+}
+
+
