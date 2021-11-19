@@ -5,9 +5,9 @@
 // 5. create method: update task
 // 6. create getter to get list
 
-const possiblyExistingLocalStorageData =
+let possiblyExistingLocalStorageData =
   JSON.parse(localStorage.getItem("items")) || [];
-  let filteredTasks = []
+let filteredTasks = []
 
 class List {
     constructor(name, id, items, active) {
@@ -20,6 +20,10 @@ class List {
     addTask(event, task) {
         event.preventDefault()
         this._items.unshift(task)
+    }
+
+    save() {
+        localStorage.setItem("items", JSON.stringify(this._items))
     }
 
     removeTask(id) {
@@ -42,7 +46,6 @@ class List {
     }
 
     get items() {
-        localStorage.setItem("items", JSON.stringify(this._items))
         return this._items
     }
 }
@@ -73,9 +76,13 @@ const shinyNewList = new List(
     true 
 )
 
+console.log('shinyNewList is: ', shinyNewList)
+renderListAndAddEventListeners(shinyNewList);
+
 function updateTask(listElement, task) {
     listElement.addEventListener('keyup', (event) => {
         task.text = listElement.textContent
+        shinyNewList.save()
         console.log(task)
         console.log(shinyNewList)
     })
@@ -101,7 +108,9 @@ function renderListAndAddEventListeners(list) {
         checkbox.setAttribute('type', 'checkbox')
         listRow.append(checkbox)
         let listElement = document.createElement('li')
-        listElement.textContent = task.text
+        console.log('task: ', task);
+        console.log('task.text: ', task._text);
+        listElement.textContent = task._text
         listElement.setAttribute('contenteditable', 'true')
         listRow.append(listElement)
         // TODO: fix button as it's not visible
@@ -118,10 +127,11 @@ renderListAndAddEventListeners(shinyNewList);
 formSelector.addEventListener('submit', (event) => {
     const task = new Task(inputField.value, Math.random() * 10000000000000000, false)
     shinyNewList.addTask(event, task)
+    shinyNewList.save()
     renderListAndAddEventListeners(shinyNewList)
     inputField.value = ''
     console.log(shinyNewList.items)
 })
 
-console.clear()
+// console.clear()
 console.log(shinyNewList)
